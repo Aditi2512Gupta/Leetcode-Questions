@@ -1,6 +1,10 @@
 class Solution {
     public int addDigits(int num) {
-        int sum = 0, n = num, d;
+
+        return num == 0 ? 0 : 1 + (num - 1) % 9;
+
+        
+        /*int sum = 0, n = num, d;
         while(n >= 10)
         {
             sum = 0;
@@ -12,6 +16,6 @@ class Solution {
             }
             n = sum;
         }
-        return n;
+        return n;*/
     }
 }
