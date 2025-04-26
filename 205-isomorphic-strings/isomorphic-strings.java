@@ -3,27 +3,26 @@ import java.util.*;
 class Solution {
     public boolean isIsomorphic(String s, String t) {
 
-        if (s.length() != t.length()) return false;
-        
-        Map<Character, Character> map = new HashMap<>();
-        Set<Character> mapped = new HashSet<>();
+        int[] sMap = new int[256];
+        int[] tMap = new int[256];
         
         for (int i = 0; i < s.length(); i++) {
-            char cs = s.charAt(i); // character from s
-            char ct = t.charAt(i); // character from t
+            char c1 = s.charAt(i);
+            char c2 = t.charAt(i);
             
-            if (map.containsKey(cs)) {
-                if (map.get(cs) != ct) return false;
-            } else {
-                if (mapped.contains(ct)) return false;
-                map.put(cs, ct);
-                mapped.add(ct);
+            if (sMap[c1] != tMap[c2]) {
+                return false;
             }
+            
+            sMap[c1] = i + 1;
+            tMap[c2] = i + 1;
         }
         
         return true;
+    }
+}
 
-        
+
 
         /*if (s.length() != t.length()) return false;
         
@@ -37,5 +36,3 @@ class Solution {
         }
         
         return true;*/
-    }
-}
