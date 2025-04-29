@@ -1,24 +1,24 @@
-class Solution {
+import java.util.HashSet;
+import java.util.Set;
+
+public class Solution {
     public String reverseVowels(String s) {
-    
-        if (s == null || s.length() <= 1) return s;
+        if (s.length() <= 1) return s;
+
+        Set<Character> vowels = new HashSet<>();
+        for (char c : "aeiouAEIOU".toCharArray()) vowels.add(c);
 
         char[] chars = s.toCharArray();
         int left = 0, right = chars.length - 1;
 
-        String vowels = "aeiouAEIOU";
-
         while (left < right) {
-            while (left < right && vowels.indexOf(chars[left]) == -1) left++;
-            while (left < right && vowels.indexOf(chars[right]) == -1) right--;
+            while (left < right && !vowels.contains(chars[left])) left++;
+            while (left < right && !vowels.contains(chars[right])) right--;
 
-            // Swap vowels
+            // Swap
             char temp = chars[left];
-            chars[left] = chars[right];
-            chars[right] = temp;
-
-            left++;
-            right--;
+            chars[left++] = chars[right];
+            chars[right--] = temp;
         }
 
         return new String(chars);
