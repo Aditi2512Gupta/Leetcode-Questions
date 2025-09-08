@@ -1,14 +1,17 @@
 class Solution {
     public boolean containsNearbyDuplicate(int[] nums, int k) {
 
-        Map<Integer, Integer> map = new HashMap<>();
-        
+        HashSet<Integer> window = new HashSet<>();
+
         for (int i = 0; i < nums.length; i++) {
-            if (map.containsKey(nums[i]) && i - map.get(nums[i]) <= k) {
-                return true;
+            if (i > k) {
+                window.remove(nums[i - k - 1]); // Maintain window of size k
             }
-            map.put(nums[i], i); 
+            if (!window.add(nums[i])) { //add() returns false if the element is already in the set → duplicate found
+                return true; // Duplicate found within range k
+            }
         }
+
         return false;
     }
 }
@@ -21,23 +24,15 @@ class Solution {
 
 
 
-
-
-
-
-
-
-        /*HashSet<Integer> window = new HashSet<>();
-
+        /*Map<Integer, Integer> map = new HashMap<>();
+        
         for (int i = 0; i < nums.length; i++) {
-            if (i > k) {
-                window.remove(nums[i - k - 1]); // Maintain window of size k
+            if (map.containsKey(nums[i]) && i - map.get(nums[i]) <= k) {
+                return true;
             }
-            if (!window.add(nums[i])) {
-                return true; // Duplicate found within range k
-            }
+            map.put(nums[i], i); 
         }
-
         return false;
     }
 }*/
+
