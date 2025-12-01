@@ -1,36 +1,45 @@
 import java.util.*;
 
 class Solution {
-    public boolean validPath(int n, int[][] edges, int source, int destination) {
-        if (source == destination) return true;
+    int[] parent;
+    int[] rank;
 
-        List<List<Integer>> graph = new ArrayList<>();
+    public boolean validPath(int n, int[][] edges, int source, int destination) {
+        parent = new int[n];
+        rank = new int[n];
+
         for (int i = 0; i < n; i++) {
-            graph.add(new ArrayList<>());
+            parent[i] = i;
+            rank[i] = 1;
         }
 
         for (int[] e : edges) {
-            int u = e[0], v = e[1];
-            graph.get(u).add(v);
-            graph.get(v).add(u);
+            union(e[0], e[1]);
         }
 
-        boolean[] visited = new boolean[n];
-        Queue<Integer> q = new LinkedList<>();
-        q.offer(source);
-        visited[source] = true;
+        return find(source) == find(destination);
+    }
 
-        while (!q.isEmpty()) {
-            int node = q.poll();
-            if (node == destination) return true;
+    int find(int x) {
+        if (parent[x] != x) {
+            parent[x] = find(parent[x]);
+        }
+        return parent[x];
+    }
 
-            for (int nei : graph.get(node)) {
-                if (!visited[nei]) {
-                    visited[nei] = true;
-                    q.offer(nei);
-                }
+    void union(int a, int b) {
+        int rootA = find(a);
+        int rootB = find(b);
+
+        if (rootA != rootB) {
+            if (rank[rootA] > rank[rootB]) {
+                parent[rootB] = rootA;
+            } else if (rank[rootA] < rank[rootB]) {
+                parent[rootA] = rootB;
+            } else {
+                parent[rootB] = rootA;
+                rank[rootA]++;
             }
         }
-        return false;
     }
 }
