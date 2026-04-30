@@ -1,6 +1,6 @@
 class Solution {
     public int minDistance(String word1, String word2) {
-    
+
         int n = word1.length(), m = word2.length();
         int[] prev = new int[m + 1];
         int[] curr = new int[m + 1];
@@ -16,7 +16,9 @@ class Solution {
                     curr[j] = 1 + Math.min(prev[j],
                                 Math.min(curr[j - 1], prev[j - 1]));
             }
-            prev = curr.clone();
+            int[] temp = prev;
+            prev = curr;
+            curr = temp;
         }
         return prev[m];
     }
