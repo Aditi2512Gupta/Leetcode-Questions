@@ -1,30 +1,45 @@
 class Solution {
     public String mostCommonWord(String paragraph, String[] banned) {
-        Set<String> ban = new HashSet<>(Arrays.asList(banned));
+        Set<String> ban = new HashSet<>();
 
-        Map<String, Integer> map = new HashMap<>();
+        for (String b : banned)
+            ban.add(b);
+
+        HashMap<String, Integer> map = new HashMap<>();
+
+        StringBuilder sb = new StringBuilder();
 
         String ans = "";
         int max = 0;
 
-        for (String w : paragraph.toLowerCase()
-                .replaceAll("[^a-z]", " ")
-                .split("\\s+")) {
+        paragraph += ".";
 
-            if (!ban.contains(w)) {
+        for (char c : paragraph.toCharArray()) {
 
-                int count = map.getOrDefault(w, 0) + 1;
+            if (Character.isLetter(c)) {
 
-                map.put(w, count);
+                sb.append(Character.toLowerCase(c));
 
-                if (count > max) {
-                    max = count;
-                    ans = w;
+            } else if (sb.length() > 0) {
+
+                String w = sb.toString();
+
+                if (!ban.contains(w)) {
+
+                    int count = map.getOrDefault(w, 0) + 1;
+
+                    map.put(w, count);
+
+                    if (count > max) {
+                        max = count;
+                        ans = w;
+                    }
                 }
+
+                sb.setLength(0);
             }
         }
 
         return ans;
-
     }
 }
