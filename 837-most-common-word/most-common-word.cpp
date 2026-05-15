@@ -1,34 +1,32 @@
 class Solution {
 public:
     string mostCommonWord(string paragraph, vector<string>& banned) {
+
         unordered_set<string> ban(banned.begin(), banned.end());
+        unordered_map<string,int> mp;
 
-        unordered_map<string, int> mp;
-
-        string word = "", ans = "";
+        string w, ans;
         int mx = 0;
 
-        paragraph += '.';
+        paragraph += ' ';
 
-        for(char c : paragraph) {
+        for(char &c : paragraph) {
 
             if(isalpha(c)) {
 
-                word += tolower(c);
+                w += tolower(c);
 
-            } else if(word != "") {
+            } else if(!w.empty()) {
 
-                if(!ban.count(word)) {
+                if(!ban.count(w)) {
 
-                    mp[word]++;
-
-                    if(mp[word] > mx) {
-                        mx = mp[word];
-                        ans = word;
+                    if(++mp[w] > mx) {
+                        mx = mp[w];
+                        ans = w;
                     }
                 }
 
-                word = "";
+                w.clear();
             }
         }
 
