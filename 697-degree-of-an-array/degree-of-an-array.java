@@ -1,28 +1,29 @@
 class Solution {
     public int findShortestSubArray(int[] nums) {
-    
-        HashMap<Integer, Integer> count = new HashMap<>();
-        HashMap<Integer, Integer> first = new HashMap<>();
+        int[] count = new int[50000];
+        int[] first = new int[50000];
+
+        Arrays.fill(first, -1);
 
         int degree = 0, ans = nums.length;
 
         for (int i = 0; i < nums.length; i++) {
+            int x = nums[i];
 
-            first.putIfAbsent(nums[i], i);
-            count.put(nums[i], count.getOrDefault(nums[i], 0) + 1);
-            int freq = count.get(nums[i]);
+            if (first[x] == -1)
+                first[x] = i;
 
-            if (freq > degree) {
-                degree = freq;
-                ans = i - first.get(nums[i]) + 1;
+            count[x]++;
 
-            } 
-            else if (freq == degree) {
-                ans = Math.min(ans,
-                        i - first.get(nums[i]) + 1);
+            if (count[x] > degree) {
+                degree = count[x];
+                ans = i - first[x] + 1;
+
+            }
+             else if (count[x] == degree) {
+                ans = Math.min(ans, i - first[x] + 1);
             }
         }
-
         return ans;
     }
 }
