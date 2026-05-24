@@ -1,6 +1,6 @@
 class Solution {
     public int[] shortestToChar(String s, char c) {
-     
+      
         int n = s.length();
         int[] a = new int[n];
 
