@@ -1,26 +1,27 @@
 class Foo {
 
-    private volatile boolean firstDone = false;
-    private volatile boolean secondDone = false;
+    private volatile int order = 1;
 
     public Foo() {
     }
 
     public void first(Runnable printFirst) {
         printFirst.run();
-        firstDone = true;
+        order = 2;
     }
 
     public void second(Runnable printSecond) {
-        while (!firstDone) {
+        while (order != 2) {
+            Thread.yield();
         }
 
         printSecond.run();
-        secondDone = true;
+        order = 3;
     }
 
     public void third(Runnable printThird) {
-        while (!secondDone) {
+        while (order != 3) {
+            Thread.yield();
         }
 
         printThird.run();
