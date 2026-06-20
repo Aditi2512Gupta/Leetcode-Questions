@@ -1,27 +1,18 @@
 class Solution {
     public List<Integer> selfDividingNumbers(int left, int right) {
-        List<Integer> ans = new ArrayList<>();
+        List<Integer> res = new ArrayList<>();
 
-        for (int num = left; num <= right; num++) {
-            int x = num;
-            boolean valid = true;
-
-            while (x > 0) {
-                int digit = x % 10;
-
-                if (digit == 0 || num % digit != 0) {
-                    valid = false;
-                    break;
+        outer:
+        for (int n = left; n <= right; n++) {
+            for (int x = n; x > 0; x /= 10) {
+                int d = x % 10;
+                if (d == 0 || n % d != 0) {
+                    continue outer;
                 }
-
-                x /= 10;
             }
-
-            if (valid) {
-                ans.add(num);
-            }
+            res.add(n);
         }
 
-        return ans;
+        return res;
     }
 }
