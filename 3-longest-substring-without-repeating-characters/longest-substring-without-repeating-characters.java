@@ -3,21 +3,22 @@ class Solution {
 
         // TC: O(n)
 
-        HashMap<Character, Integer> map = new HashMap<>();
+        HashSet<Character> set = new HashSet<>();
 
-        int left = 0, maxLen = 0;
+        int left = 0, right = 0;
+        int maxLen = 0;
 
-        for (int right = 0; right < s.length(); right++) {
+        while (right < s.length()) {
 
-            char ch = s.charAt(right);
-
-            if (map.containsKey(ch) && map.get(ch) >= left) {
-                left = map.get(ch) + 1;
+            if (!set.contains(s.charAt(right))) {
+                set.add(s.charAt(right));
+                maxLen = Math.max(maxLen, right - left + 1);
+                right++;
             }
-
-            map.put(ch, right);
-
-            maxLen = Math.max(maxLen, right - left + 1);
+            else {
+                set.remove(s.charAt(left));
+                left++;
+            }
         }
 
         return maxLen;
