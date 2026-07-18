@@ -1,5 +1,5 @@
 class Solution {
-        private int gcd(int a, int b) {
+    private int gcd(int a, int b) {
         while (b != 0) {
             int temp = b;
             b = a % b;
@@ -7,13 +7,16 @@ class Solution {
         }
         return a;
     }
+    
     public int findGCD(int[] nums) {
        int min = nums[0];
         int max = nums[0];
 
         for (int num : nums) {
-            if (num < min) min = num;
-            if (num > max) max = num;
+            if (num < min)
+                min = num;
+            if (num > max)
+                max = num;
         }
 
         return gcd(min, max);
