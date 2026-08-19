@@ -24,6 +24,10 @@ class Solution {
                 else
                     dp[j] = 1 + Math.min(prev, Math.min(dp[j], dp[j - 1]));
 
+                    //prev      → Replace
+                    // dp[j]     → Delete
+                    // dp[j-1]   → Insert
+
                 prev = temp;
             }
         }
