@@ -1,7 +1,8 @@
 class Solution {
     public int longestPalindromeSubseq(String s) {
-        String r = new StringBuilder(s).reverse().toString();
+        // DP with Optimization: TC: O(n^2), SC: O(n)
 
+        String r = new StringBuilder(s).reverse().toString();
         int n = s.length();
         int dp[] = new int[n + 1];
 
