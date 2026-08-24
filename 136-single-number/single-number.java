@@ -1,15 +1,13 @@
 class Solution {
     public int singleNumber(int[] nums) {
-        int result = 0;
+        // O(n) time, O(1) space
         
-        /*for (int i = 0; i < nums.length; i++) {
-        int num = nums[i];
-        }*/
+        int result = 0;
 
-        for (int num : nums) {
-            result ^= num; // XOR cancels out duplicate numbers
+        for(int n: nums) {
+            result ^= n;
         }
-        return result;
 
+        return result;
     }
 }
