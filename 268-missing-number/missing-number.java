@@ -1,13 +1,27 @@
+// class Solution {
+//     public int missingNumber(int[] nums) {
+//       int n = nums.length;
+//         int expectedSum = n * (n + 1) / 2;  // Sum of numbers from 0 to n
+//         int actualSum = 0;
+
+//         for (int num : nums) {
+//             actualSum += num;
+//         }
+
+//         return expectedSum - actualSum;  // The difference is the missing number
+//     }  
+// }
+
+
 class Solution {
     public int missingNumber(int[] nums) {
-      int n = nums.length;
-        int expectedSum = n * (n + 1) / 2;  // Sum of numbers from 0 to n
-        int actualSum = 0;
+        int n = nums.length;
+        int result = n;
 
-        for (int num : nums) {
-            actualSum += num;
+        for (int i = 0; i < n; i++) {
+            result ^= i ^ nums[i];
         }
 
-        return expectedSum - actualSum;  // The difference is the missing number
-    }  
+        return result;
+    }
 }
